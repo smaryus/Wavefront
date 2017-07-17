@@ -13,6 +13,10 @@
 		29ECB0721F1CF1FD006FCA6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29ECB0701F1CF1FD006FCA6C /* Main.storyboard */; };
 		29ECB0741F1CF1FD006FCA6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29ECB0731F1CF1FD006FCA6C /* Assets.xcassets */; };
 		29ECB0771F1CF1FE006FCA6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29ECB0751F1CF1FE006FCA6C /* LaunchScreen.storyboard */; };
+		29ECB0831F1CF367006FCA6C /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 29ECB0821F1CF367006FCA6C /* Shader.vsh */; };
+		29ECB0851F1CF36D006FCA6C /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 29ECB0841F1CF36D006FCA6C /* Shader.fsh */; };
+		29ECB0891F1CF574006FCA6C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ECB0871F1CF574006FCA6C /* GLKit.framework */; };
+		29ECB08A1F1CF574006FCA6C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ECB0881F1CF574006FCA6C /* OpenGLES.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		29ECB0731F1CF1FD006FCA6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		29ECB0761F1CF1FE006FCA6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		29ECB0781F1CF1FE006FCA6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29ECB0821F1CF367006FCA6C /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		29ECB0841F1CF36D006FCA6C /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		29ECB0871F1CF574006FCA6C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		29ECB0881F1CF574006FCA6C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29ECB0891F1CF574006FCA6C /* GLKit.framework in Frameworks */,
+				29ECB08A1F1CF574006FCA6C /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +54,7 @@
 			children = (
 				29ECB0661F1CF1FD006FCA6C /* WavefrontViewer */,
 				29ECB0651F1CF1FD006FCA6C /* Products */,
+				29ECB0861F1CF574006FCA6C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +77,7 @@
 				29ECB0731F1CF1FD006FCA6C /* Assets.xcassets */,
 				29ECB0751F1CF1FE006FCA6C /* LaunchScreen.storyboard */,
 				29ECB0781F1CF1FE006FCA6C /* Info.plist */,
+				29ECB0811F1CF34F006FCA6C /* Resources */,
 				29ECB0671F1CF1FD006FCA6C /* Supporting Files */,
 			);
 			path = WavefrontViewer;
@@ -77,6 +89,24 @@
 				29ECB0681F1CF1FD006FCA6C /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		29ECB0811F1CF34F006FCA6C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				29ECB0841F1CF36D006FCA6C /* Shader.fsh */,
+				29ECB0821F1CF367006FCA6C /* Shader.vsh */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		29ECB0861F1CF574006FCA6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29ECB0871F1CF574006FCA6C /* GLKit.framework */,
+				29ECB0881F1CF574006FCA6C /* OpenGLES.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +167,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29ECB0831F1CF367006FCA6C /* Shader.vsh in Resources */,
 				29ECB0771F1CF1FE006FCA6C /* LaunchScreen.storyboard in Resources */,
 				29ECB0741F1CF1FD006FCA6C /* Assets.xcassets in Resources */,
 				29ECB0721F1CF1FD006FCA6C /* Main.storyboard in Resources */,
+				29ECB0851F1CF36D006FCA6C /* Shader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

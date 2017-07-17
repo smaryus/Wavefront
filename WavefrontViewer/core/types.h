@@ -12,16 +12,46 @@
 /**
  * Represents a 3D floating point
  */
-struct vec3
+template<class T>
+struct Vec3
 {
-    float x; /// x-coordinate
-    float y; /// y-coordinate
-    float z; /// z-coordinate
+    T x; /// x-coordinate
+    T y; /// y-coordinate
+    T z; /// z-coordinate
 
     /**
      * Default constructor
      */
-    vec3(): x(0), y(0), z(0) {}
+    Vec3(): x(T(0)), y(T(0)), z(T(0)) {}
+};
+
+typedef Vec3<float> fvec3;
+typedef Vec3<int> ivec3;
+
+struct IndexData
+{
+    int vertexIndex;
+    int normalIndex;
+    int textureIndex;
+
+    IndexData() : vertexIndex(0), normalIndex(0), textureIndex(0) {}
+
+    bool operator== (const IndexData& other) const
+    {
+        return ((this->vertexIndex == other.vertexIndex) &&
+                (this->normalIndex == other.normalIndex) &&
+                (this->textureIndex == other.textureIndex));
+    }
+
+};
+
+struct Vertex
+{
+    fvec3 position;
+    fvec3 normal;
+    fvec3 texture;
+
+    Vertex() : position(), normal(), texture() {}
 };
 
 #endif /* types_h */

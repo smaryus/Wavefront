@@ -21,6 +21,8 @@ WavefrontFileReader::WavefrontFileReader(const string& filePath)
 , m_object()
 {
     loadFile(filePath);
+
+    assert( ! m_object.vertices.empty() );
 }
 
 void WavefrontFileReader::loadFile(const std::string& filePath)
@@ -76,19 +78,19 @@ void WavefrontFileReader::loadFile(const std::string& filePath)
         if( type == "v" )
         {
             // vertex
-            vec3 vertex = processVec3(tokens);
+            auto vertex = processVec3(tokens);
             m_object.vertices.push_back(vertex);
         }
         else if( type == "vt")
         {
             // texture coordinates
-            vec3 coord = processVec3(tokens);
+            auto coord = processVec3(tokens);
             m_object.texCoords.push_back(coord);
         }
         else if( type == "vn")
         {
             // normal
-            vec3 normal = processVec3(tokens);
+            auto normal = processVec3(tokens);
             m_object.normals.push_back(normal);
         }
         else if( type == "g" )
@@ -162,42 +164,38 @@ WavefrontFileReader::processFace(const vector<string>& tokens) const
 
     for( auto it = tokens.begin()+1; it != tokens.end(); ++it )
     {
+        IndexData indexData;
+
         const char* ptr = (*it).c_str();
         char* pEnd = nullptr;
 
-        int vertexIndex = std::strtod(ptr, &pEnd);
+        indexData.vertexIndex = std::strtod(ptr, &pEnd);
 
-        if( vertexIndex <= 0 )
+        if( indexData.vertexIndex <= 0 )
         {
             continue;
         }
 
-        face.vertexIndices.push_back(vertexIndex-1);
-
         if( *pEnd == '/' )
         {
-            int textureIndex = std::strtod(pEnd+1, &pEnd);
-            if(textureIndex > 0)
-            {
-                face.textureIndices.push_back(textureIndex-1);
-            }
+            indexData.textureIndex = std::strtod(pEnd+1, &pEnd);
 
             if( *pEnd == '/' )
             {
-                int normalIndex = std::strtod(pEnd+1, &pEnd);
-                assert(normalIndex > 0);
-
-                face.normalIndices.push_back(normalIndex-1);
+                indexData.normalIndex = std::strtod(pEnd+1, &pEnd);
+                assert(indexData.normalIndex > 0);
             }
         }
+
+        face.indices.push_back(indexData);
     }
 
     return face;
 }
 
-vec3 WavefrontFileReader::processVec3(const vector<string>& tokens) const
+fvec3 WavefrontFileReader::processVec3(const vector<string>& tokens) const
 {
-    vec3 v;
+    fvec3 v;
 
     size_t tokensSize = tokens.size();
 

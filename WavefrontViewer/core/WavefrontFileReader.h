@@ -27,9 +27,7 @@ public:
      */
     struct Face
     {
-        std::vector<int> vertexIndices; /// Vertex indices
-        std::vector<int> normalIndices; /// Normal indices
-        std::vector<int> textureIndices; /// Texture indices
+        std::vector<IndexData> indices;
     };
 
     struct Mesh
@@ -44,13 +42,13 @@ public:
     struct Object
     {
         /// List with all the positions from file
-        std::vector<vec3> vertices;
+        std::vector<fvec3> vertices;
 
         /// List with all the texture coordinates from file
-        std::vector<vec3> texCoords;
+        std::vector<fvec3> texCoords;
 
         /// List with all the normals from file
-        std::vector<vec3> normals;
+        std::vector<fvec3> normals;
 
         /// List with all the meshes from file
         std::vector<Mesh> meshes;
@@ -111,7 +109,7 @@ private:
      * @return Returns a vec3 object. If there are not sufficient tokens for
      *          all vec3 components they are set to zero
      */
-    vec3 processVec3(const std::vector<std::string>& tokens) const;
+    fvec3 processVec3(const std::vector<std::string>& tokens) const;
 
 private:
     /// Full file path pointing to the loaded obj file

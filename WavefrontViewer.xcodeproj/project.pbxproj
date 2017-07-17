@@ -17,6 +17,7 @@
 		29ECB0851F1CF36D006FCA6C /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 29ECB0841F1CF36D006FCA6C /* Shader.fsh */; };
 		29ECB0891F1CF574006FCA6C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ECB0871F1CF574006FCA6C /* GLKit.framework */; };
 		29ECB08A1F1CF574006FCA6C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ECB0881F1CF574006FCA6C /* OpenGLES.framework */; };
+		29ECB08F1F1CF7AD006FCA6C /* WavefrontFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB08D1F1CF7AD006FCA6C /* WavefrontFileReader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,9 @@
 		29ECB0841F1CF36D006FCA6C /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		29ECB0871F1CF574006FCA6C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		29ECB0881F1CF574006FCA6C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		29ECB08D1F1CF7AD006FCA6C /* WavefrontFileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavefrontFileReader.cpp; sourceTree = "<group>"; };
+		29ECB08E1F1CF7AD006FCA6C /* WavefrontFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavefrontFileReader.h; sourceTree = "<group>"; };
+		29ECB0901F1CF7CE006FCA6C /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 				29ECB0731F1CF1FD006FCA6C /* Assets.xcassets */,
 				29ECB0751F1CF1FE006FCA6C /* LaunchScreen.storyboard */,
 				29ECB0781F1CF1FE006FCA6C /* Info.plist */,
+				29ECB08C1F1CF799006FCA6C /* core */,
 				29ECB0811F1CF34F006FCA6C /* Resources */,
 				29ECB0671F1CF1FD006FCA6C /* Supporting Files */,
 			);
@@ -107,6 +112,16 @@
 				29ECB0881F1CF574006FCA6C /* OpenGLES.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		29ECB08C1F1CF799006FCA6C /* core */ = {
+			isa = PBXGroup;
+			children = (
+				29ECB08D1F1CF7AD006FCA6C /* WavefrontFileReader.cpp */,
+				29ECB08E1F1CF7AD006FCA6C /* WavefrontFileReader.h */,
+				29ECB0901F1CF7CE006FCA6C /* types.h */,
+			);
+			path = core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +200,7 @@
 				29ECB06F1F1CF1FD006FCA6C /* ViewController.m in Sources */,
 				29ECB06C1F1CF1FD006FCA6C /* AppDelegate.m in Sources */,
 				29ECB0691F1CF1FD006FCA6C /* main.m in Sources */,
+				29ECB08F1F1CF7AD006FCA6C /* WavefrontFileReader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

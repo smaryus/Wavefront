@@ -13,6 +13,23 @@
 		29906A661F1D5C850029D1EB /* cub2.obj in Resources */ = {isa = PBXBuildFile; fileRef = 29906A651F1D5C850029D1EB /* cub2.obj */; };
 		29906A681F1D6C340029D1EB /* humanoid_tri.obj in Resources */ = {isa = PBXBuildFile; fileRef = 29906A671F1D6C340029D1EB /* humanoid_tri.obj */; };
 		29906A6A1F1D6DB60029D1EB /* humanoid_quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = 29906A691F1D6DB60029D1EB /* humanoid_quad.obj */; };
+		29B13C8D1F1E0D310078B4D6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29B13C8C1F1E0D310078B4D6 /* main.cpp */; };
+		29B13C981F1E0EEE0078B4D6 /* libgtest_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B13C941F1E0D660078B4D6 /* libgtest_main.a */; };
+		29B13C9A1F1E0EF60078B4D6 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B13C931F1E0D660078B4D6 /* libgtest.a */; };
+		29B13C9B1F1E0EF90078B4D6 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B13C921F1E0D660078B4D6 /* gtest.framework */; };
+		29B13C9C1F1E10A00078B4D6 /* gtest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29B13C921F1E0D660078B4D6 /* gtest.framework */; };
+		29B13C9D1F1E10A00078B4D6 /* libgtest.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29B13C931F1E0D660078B4D6 /* libgtest.a */; };
+		29B13C9E1F1E10A00078B4D6 /* libgtest_main.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29B13C941F1E0D660078B4D6 /* libgtest_main.a */; };
+		29B13CA01F1E119A0078B4D6 /* WavefrontFileReaderTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29B13C9F1F1E119A0078B4D6 /* WavefrontFileReaderTest.cpp */; };
+		29B13CA11F1E25500078B4D6 /* WavefrontFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB08D1F1CF7AD006FCA6C /* WavefrontFileReader.cpp */; };
+		29B13CA41F1E256E0078B4D6 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B13CA31F1E256E0078B4D6 /* OpenGL.framework */; };
+		29B13CA61F1E25860078B4D6 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B13CA51F1E25860078B4D6 /* GLKit.framework */; };
+		29B13CA71F1E30440078B4D6 /* cube.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29906A611F1D45F60029D1EB /* cube.obj */; };
+		29B13CA81F1E360A0078B4D6 /* WavefrontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29906A5E1F1D40E00029D1EB /* WavefrontRenderer.cpp */; };
+		29B13CAC1F1E37300078B4D6 /* WavefrontRendererTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29B13CAB1F1E37300078B4D6 /* WavefrontRendererTest.cpp */; };
+		29B13CAD1F1E3F7F0078B4D6 /* humanoid_tri.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29906A671F1D6C340029D1EB /* humanoid_tri.obj */; };
+		29B13CAE1F1E3F7F0078B4D6 /* humanoid_quad.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29906A691F1D6DB60029D1EB /* humanoid_quad.obj */; };
+		29B13CAF1F1E417D0078B4D6 /* ducky.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29906A631F1D569D0029D1EB /* ducky.obj */; };
 		29ECB0691F1CF1FD006FCA6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB0681F1CF1FD006FCA6C /* main.m */; };
 		29ECB06C1F1CF1FD006FCA6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB06B1F1CF1FD006FCA6C /* AppDelegate.m */; };
 		29ECB06F1F1CF1FD006FCA6C /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB06E1F1CF1FD006FCA6C /* ViewController.mm */; };
@@ -26,6 +43,25 @@
 		29ECB08F1F1CF7AD006FCA6C /* WavefrontFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB08D1F1CF7AD006FCA6C /* WavefrontFileReader.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		29B13C881F1E0D310078B4D6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				29B13CAF1F1E417D0078B4D6 /* ducky.obj in CopyFiles */,
+				29B13CAD1F1E3F7F0078B4D6 /* humanoid_tri.obj in CopyFiles */,
+				29B13CAE1F1E3F7F0078B4D6 /* humanoid_quad.obj in CopyFiles */,
+				29B13CA71F1E30440078B4D6 /* cube.obj in CopyFiles */,
+				29B13C9C1F1E10A00078B4D6 /* gtest.framework in CopyFiles */,
+				29B13C9D1F1E10A00078B4D6 /* libgtest.a in CopyFiles */,
+				29B13C9E1F1E10A00078B4D6 /* libgtest_main.a in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		29906A5E1F1D40E00029D1EB /* WavefrontRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavefrontRenderer.cpp; sourceTree = "<group>"; };
 		29906A5F1F1D40E00029D1EB /* WavefrontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavefrontRenderer.h; sourceTree = "<group>"; };
@@ -34,6 +70,15 @@
 		29906A651F1D5C850029D1EB /* cub2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cub2.obj; sourceTree = "<group>"; };
 		29906A671F1D6C340029D1EB /* humanoid_tri.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = humanoid_tri.obj; sourceTree = "<group>"; };
 		29906A691F1D6DB60029D1EB /* humanoid_quad.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = humanoid_quad.obj; sourceTree = "<group>"; };
+		29B13C8A1F1E0D310078B4D6 /* GTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GTest; sourceTree = BUILT_PRODUCTS_DIR; };
+		29B13C8C1F1E0D310078B4D6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		29B13C921F1E0D660078B4D6 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = gtest.framework; sourceTree = "<group>"; };
+		29B13C931F1E0D660078B4D6 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgtest.a; sourceTree = "<group>"; };
+		29B13C941F1E0D660078B4D6 /* libgtest_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgtest_main.a; sourceTree = "<group>"; };
+		29B13C9F1F1E119A0078B4D6 /* WavefrontFileReaderTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavefrontFileReaderTest.cpp; sourceTree = "<group>"; };
+		29B13CA31F1E256E0078B4D6 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
+		29B13CA51F1E25860078B4D6 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		29B13CAB1F1E37300078B4D6 /* WavefrontRendererTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavefrontRendererTest.cpp; sourceTree = "<group>"; };
 		29ECB0641F1CF1FD006FCA6C /* WavefrontViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WavefrontViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29ECB0681F1CF1FD006FCA6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29ECB06A1F1CF1FD006FCA6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -54,6 +99,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		29B13C871F1E0D310078B4D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29B13CA61F1E25860078B4D6 /* GLKit.framework in Frameworks */,
+				29B13CA41F1E256E0078B4D6 /* OpenGL.framework in Frameworks */,
+				29B13C981F1E0EEE0078B4D6 /* libgtest_main.a in Frameworks */,
+				29B13C9B1F1E0EF90078B4D6 /* gtest.framework in Frameworks */,
+				29B13C9A1F1E0EF60078B4D6 /* libgtest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		29ECB0611F1CF1FD006FCA6C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,10 +123,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29B13C8B1F1E0D310078B4D6 /* GTest */ = {
+			isa = PBXGroup;
+			children = (
+				29B13C911F1E0D660078B4D6 /* Dependencies */,
+				29B13C8C1F1E0D310078B4D6 /* main.cpp */,
+				29B13C9F1F1E119A0078B4D6 /* WavefrontFileReaderTest.cpp */,
+				29B13CAB1F1E37300078B4D6 /* WavefrontRendererTest.cpp */,
+			);
+			path = GTest;
+			sourceTree = "<group>";
+		};
+		29B13C911F1E0D660078B4D6 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				29B13C921F1E0D660078B4D6 /* gtest.framework */,
+				29B13C931F1E0D660078B4D6 /* libgtest.a */,
+				29B13C941F1E0D660078B4D6 /* libgtest_main.a */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 		29ECB05B1F1CF1FD006FCA6C = {
 			isa = PBXGroup;
 			children = (
 				29ECB0661F1CF1FD006FCA6C /* WavefrontViewer */,
+				29B13C8B1F1E0D310078B4D6 /* GTest */,
 				29ECB0651F1CF1FD006FCA6C /* Products */,
 				29ECB0861F1CF574006FCA6C /* Frameworks */,
 			);
@@ -79,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				29ECB0641F1CF1FD006FCA6C /* WavefrontViewer.app */,
+				29B13C8A1F1E0D310078B4D6 /* GTest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +206,8 @@
 		29ECB0861F1CF574006FCA6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				29B13CA51F1E25860078B4D6 /* GLKit.framework */,
+				29B13CA31F1E256E0078B4D6 /* OpenGL.framework */,
 				29ECB0871F1CF574006FCA6C /* GLKit.framework */,
 				29ECB0881F1CF574006FCA6C /* OpenGLES.framework */,
 			);
@@ -147,6 +229,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		29B13C891F1E0D310078B4D6 /* GTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29B13C8E1F1E0D310078B4D6 /* Build configuration list for PBXNativeTarget "GTest" */;
+			buildPhases = (
+				29B13C861F1E0D310078B4D6 /* Sources */,
+				29B13C871F1E0D310078B4D6 /* Frameworks */,
+				29B13C881F1E0D310078B4D6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GTest;
+			productName = GTest;
+			productReference = 29B13C8A1F1E0D310078B4D6 /* GTest */;
+			productType = "com.apple.product-type.tool";
+		};
 		29ECB0631F1CF1FD006FCA6C /* WavefrontViewer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 29ECB07B1F1CF1FE006FCA6C /* Build configuration list for PBXNativeTarget "WavefrontViewer" */;
@@ -173,6 +272,10 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Marius Sincovici";
 				TargetAttributes = {
+					29B13C891F1E0D310078B4D6 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
 					29ECB0631F1CF1FD006FCA6C = {
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
@@ -193,6 +296,7 @@
 			projectRoot = "";
 			targets = (
 				29ECB0631F1CF1FD006FCA6C /* WavefrontViewer */,
+				29B13C891F1E0D310078B4D6 /* GTest */,
 			);
 		};
 /* End PBXProject section */
@@ -218,6 +322,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		29B13C861F1E0D310078B4D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29B13C8D1F1E0D310078B4D6 /* main.cpp in Sources */,
+				29B13CA81F1E360A0078B4D6 /* WavefrontRenderer.cpp in Sources */,
+				29B13CAC1F1E37300078B4D6 /* WavefrontRendererTest.cpp in Sources */,
+				29B13CA01F1E119A0078B4D6 /* WavefrontFileReaderTest.cpp in Sources */,
+				29B13CA11F1E25500078B4D6 /* WavefrontFileReader.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		29ECB0601F1CF1FD006FCA6C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,6 +368,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		29B13C8F1F1E0D310078B4D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GTest/Dependencies",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NO_OPENGL,
+					"DEBUG=1",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GTest/Dependencies",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		29B13C901F1E0D310078B4D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GTest/Dependencies",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = NO_OPENGL;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GTest/Dependencies",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		29ECB0791F1CF1FE006FCA6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -348,8 +505,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/gtests/Dependencies",
+				);
 				INFOPLIST_FILE = WavefrontViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/gtests/Dependencies",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = marius.WavefrontViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -359,8 +524,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/gtests/Dependencies",
+				);
 				INFOPLIST_FILE = WavefrontViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/gtests/Dependencies",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = marius.WavefrontViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -369,6 +542,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		29B13C8E1F1E0D310078B4D6 /* Build configuration list for PBXNativeTarget "GTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29B13C8F1F1E0D310078B4D6 /* Debug */,
+				29B13C901F1E0D310078B4D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		29ECB05F1F1CF1FD006FCA6C /* Build configuration list for PBXProject "WavefrontViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

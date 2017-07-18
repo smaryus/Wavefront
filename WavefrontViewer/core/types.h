@@ -20,6 +20,13 @@ struct Vec3
     T x = T(0); /// x-coordinate
     T y = T(0); /// y-coordinate
     T z = T(0); /// z-coordinate
+
+    bool operator== (const Vec3& other) const
+    {
+        return ((this->x == other.x) &&
+                (this->y == other.y) &&
+                (this->z == other.z));
+    }
 };
 
 typedef Vec3<float> fvec3;
@@ -57,7 +64,13 @@ struct Vertex
     fvec3 normal; /// normal
     fvec3 texture; /// texture coordinate
 
-    Vertex() : position(), normal(), texture() {}
+    bool operator== (const Vertex& other) const
+    {
+        return ((this->position == other.position) &&
+                (this->normal == other.normal) &&
+                (this->texture == other.texture));
+    }
+
 };
 
 /**

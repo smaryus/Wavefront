@@ -13,6 +13,7 @@
 #include <vector>
 #include <iostream>
 #include <numeric>
+#include <stdexcept>
 
 using namespace std;
 
@@ -20,28 +21,61 @@ WavefrontFileReader::WavefrontFileReader(const string& filePath)
 : m_filePath(filePath)
 , m_object()
 {
-    loadFile(filePath);
-
-    assert( ! m_object.vertices.empty() );
-}
-
-void WavefrontFileReader::loadFile(const std::string& filePath)
-{
     ifstream file(filePath);
 
     if( !file.is_open() )
     {
+        throw std::runtime_error("Could not open file");
+
         return;
     }
 
+    loadFile(file);
+}
+
+WavefrontFileReader::WavefrontFileReader(std::istream& stream)
+{
+    loadFile(stream);
+}
+
+bool WavefrontFileReader::validateObject() const
+{
+    for( const auto& mesh : m_object.meshes )
+    {
+        for( auto& face : mesh.faces )
+        {
+            for( auto& index : face.indices )
+            {
+                if( abs(index.vertexIndex) > m_object.vertices.size() )
+                {
+                    return false;
+                }
+
+                if( abs(index.textureIndex) > m_object.texCoords.size() )
+                {
+                    return false;
+                }
+
+                if( abs(index.normalIndex) > m_object.normals.size() )
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+void WavefrontFileReader::loadFile(std::istream& stream)
+{
     string line;
     std::vector<std::string> tokens;
 
-    while( file.good() )
+    while( stream.good() )
     {
-        file >> std::ws;
+        stream >> std::ws;
 
-        if( ! std::getline(file, line) )
+        if( ! std::getline(stream, line) )
         {
             break;
         }
@@ -100,7 +134,11 @@ void WavefrontFileReader::loadFile(const std::string& filePath)
             g.name.reserve(line.size());
             for( auto it = tokens.begin()+1; it != tokens.end(); ++it )
             {
-                g.name = *it + " ";
+                if( !g.name.empty() )
+                {
+                    g.name += " ";
+                }
+                g.name += *it;
             }
 
             m_object.meshes.push_back(std::move(g));

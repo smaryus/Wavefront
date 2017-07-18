@@ -53,6 +53,9 @@ public:
 
         /// List with all the meshes from file
         std::vector<Mesh> meshes;
+
+        bool empty() const { return vertices.empty() && texCoords.empty() &&
+            normals.empty() && meshes.empty(); }
     };
 
 public:
@@ -61,6 +64,10 @@ public:
      * @param filePath - full path to the Wavefront file
      */
     WavefrontFileReader(const std::string& filePath);
+
+    WavefrontFileReader(std::istream& stream);
+
+    bool validateObject() const;
 
 public:
     /**
@@ -73,9 +80,9 @@ public:
 private:
     /**
      * Load and parse the specified Wavefront file
-     * @param filePath - full path to the file
+     * @param stream - file stream
      */
-    void loadFile(const std::string& filePath);
+    void loadFile(std::istream& stream);
 
     /**
      * Tokenize string using the specified delimiters.

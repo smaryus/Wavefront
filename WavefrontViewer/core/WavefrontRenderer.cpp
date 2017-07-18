@@ -32,19 +32,72 @@ struct KeyTypeHash
     }
 };
 
-WavefrontRenderer::WavefrontRenderer(WavefrontFileReader& reader,
+WavefrontRenderer::WavefrontRenderer(const WavefrontFileReader& reader,
                                      const bool splitInTriangles/*=true*/)
-: m_vboId(0)
-, m_iboId(0)
-, m_maxCoordinateValue(0.0f)
 {
-    const auto& object = reader.object();
+    if( reader.object().empty() )
+    {
+        return;
+    }
 
     std::vector<Vertex> vbo;
     std::vector<uint32_t> ibo;
 
-    vbo.reserve(object.vertices.size() + object.normals.size() +
-                object.texCoords.size());
+    generateBuffers(reader, splitInTriangles, vbo, ibo);
+
+    generateOpenGLBuffers(vbo, ibo);
+}
+
+WavefrontRenderer::~WavefrontRenderer()
+{
+#ifndef NO_OPENGL
+    if( m_vboId > 0 )
+    {
+        glDeleteBuffers(1, &m_vboId);
+        m_vboId = 0;
+    }
+
+    if( m_iboId > 0 )
+    {
+        glDeleteBuffers(1, &m_iboId);
+        m_iboId = 0;
+    }
+#endif
+}
+
+void WavefrontRenderer::draw() const
+{
+#ifndef NO_OPENGL
+    if( m_iboId <= 0 )
+    {
+        assert( false );
+        return;
+    }
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_iboId);
+
+    for( auto& command : m_commands )
+    {
+        GLenum drawType = (command.type == Command::Triangles)
+                ? GL_TRIANGLES : GL_TRIANGLE_FAN;
+
+        glDrawElements(drawType, command.count, GL_UNSIGNED_INT,
+                       (void*)(command.index * sizeof(uint32_t)));
+    }
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+#endif
+}
+
+void WavefrontRenderer::generateBuffers(const WavefrontFileReader& reader,
+                                        const bool splitInTriangles,
+                                        std::vector<Vertex>& vbo,
+                                        std::vector<uint32_t>& ibo)
+{
+    vbo.clear();
+    ibo.clear();
+    
+    const auto& object = reader.object();
 
     std::unordered_map<KeyType, uint32_t, KeyTypeHash> duplicateVertices;
 
@@ -118,7 +171,7 @@ WavefrontRenderer::WavefrontRenderer(WavefrontFileReader& reader,
                 {
                     // already exist, only add it to index buffer
                     assert( it->first == index );
-                    
+
                     auto position = it->second;
                     ibo.push_back( position );
                 }
@@ -129,10 +182,15 @@ WavefrontRenderer::WavefrontRenderer(WavefrontFileReader& reader,
 
         m_commands.push_back(command);
     }
+}
 
-    
+
+void WavefrontRenderer::generateOpenGLBuffers(std::vector<Vertex>& vbo,
+                                              std::vector<uint32_t>& ibo)
+{
     assert( !ibo.empty() && !vbo.empty() );
 
+#ifndef NO_OPENGL
     glGenBuffers(1, &m_vboId);
     assert( m_vboId > 0 );
     glBindBuffer(GL_ARRAY_BUFFER, m_vboId);
@@ -157,41 +215,5 @@ WavefrontRenderer::WavefrontRenderer(WavefrontFileReader& reader,
                           sizeof(Vertex), BUFFER_OFFSET(12));
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
-
-WavefrontRenderer::~WavefrontRenderer()
-{
-    if( m_vboId > 0 )
-    {
-        glDeleteBuffers(1, &m_vboId);
-        m_vboId = 0;
-    }
-
-    if( m_iboId > 0 )
-    {
-        glDeleteBuffers(1, &m_iboId);
-        m_iboId = 0;
-    }
-}
-
-void WavefrontRenderer::draw() const
-{
-    if( m_iboId <= 0 )
-    {
-        assert( false );
-        return;
-    }
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_iboId);
-
-    for( auto& command : m_commands )
-    {
-        GLenum drawType = (command.type == Command::Triangles)
-                ? GL_TRIANGLES : GL_TRIANGLE_FAN;
-
-        glDrawElements(drawType, command.count, GL_UNSIGNED_INT,
-                       (void*)(command.index * sizeof(uint32_t)));
-    }
-
-    glBindVertexArrayOES(0);
+#endif
 }

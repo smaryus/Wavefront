@@ -29,10 +29,14 @@ GLint uniforms[NUM_UNIFORMS];
     float _rotation;
 
     std::unique_ptr<WavefrontRenderer> _render;
+
+    int _renderFileIndex;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) GLKBaseEffect *effect;
+@property (strong, nonatomic) NSArray<NSString *>* objFiles;
+@property (weak, nonatomic) IBOutlet UILabel *fileNameLabel;
 
 @end
 
@@ -52,6 +56,11 @@ GLint uniforms[NUM_UNIFORMS];
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 
     [self setupGL];
+
+
+    _renderFileIndex = 0;
+    self.objFiles = [[NSBundle mainBundle] pathsForResourcesOfType:@"obj"
+                                                       inDirectory:nil];
 
     [self readWavefront];
 }
@@ -118,7 +127,7 @@ GLint uniforms[NUM_UNIFORMS];
     self.effect.transform.modelviewMatrix = modelViewMatrix;
 
     // Compute the model view matrix for the object rendered with ES2
-    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
+    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
 
     float scale = 1;
 
@@ -293,13 +302,25 @@ GLint uniforms[NUM_UNIFORMS];
 }
 
 - (void)readWavefront {
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"cube"
-                                                     ofType:@"obj"];
-//    NSString* path = [[NSBundle mainBundle] pathForResource:@"ducky"
-//                                                     ofType:@"obj"];
+    assert( _renderFileIndex < self.objFiles.count );
+
+    NSString* path = self.objFiles[_renderFileIndex];
 
     WavefrontFileReader reader([path UTF8String]);
     _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(reader));
+
+    self.fileNameLabel.text = [path lastPathComponent];
+}
+
+- (IBAction)moveToNextFileAction:(id)sender {
+    ++_renderFileIndex;
+
+    if( _renderFileIndex >= self.objFiles.count )
+    {
+        _renderFileIndex = 0;
+    }
+
+    [self readWavefront];
 }
 
 

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,8 +21,36 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GLKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-uc-nnR">
+                                <rect key="frame" x="28" y="606" width="74" height="35"/>
+                                <color key="backgroundColor" red="0.80170272440000001" green="0.80170272440000001" blue="0.80170272440000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Next File">
+                                    <color key="titleColor" red="1" green="0.15876045089999999" blue="0.14599681510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveToNextFileAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Ky-2T-oDz"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Kr-6b-gUG">
+                                <rect key="frame" x="110" y="613" width="76" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hqm-uc-nnR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="12" id="ClQ-ZZ-Cj6"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hqm-uc-nnR" secondAttribute="bottom" constant="26" id="aUK-Sl-Yh4"/>
+                            <constraint firstItem="6Kr-6b-gUG" firstAttribute="leading" secondItem="hqm-uc-nnR" secondAttribute="trailing" constant="8" symbolic="YES" id="e1h-W7-8DP"/>
+                            <constraint firstItem="6Kr-6b-gUG" firstAttribute="centerY" secondItem="hqm-uc-nnR" secondAttribute="centerY" id="vah-Hw-3aR"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="fileNameLabel" destination="6Kr-6b-gUG" id="8FD-ca-bYF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

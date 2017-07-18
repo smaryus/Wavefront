@@ -51,6 +51,7 @@ public:
 
 public:
     float maxCoordinateValue() const { return m_maxCoordinateValue; }
+    const std::vector<Command>& commandsList() const { return m_commands; }
 
 protected:
     void generateBuffers(const WavefrontFileReader& reader,

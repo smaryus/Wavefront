@@ -88,6 +88,13 @@ struct Command
     Type type = Triangles; /// render type
     uint32_t index = 0; /// starting index from current VBO
     uint32_t count = 0; /// number of elements that need to be drawn
+
+    bool operator== (const Command& other) const
+    {
+        return ((this->type == other.type) &&
+                (this->index == other.index) &&
+                (this->count == other.count));
+    }
 };
 
 #endif /* types_h */

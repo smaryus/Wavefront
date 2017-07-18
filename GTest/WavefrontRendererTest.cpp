@@ -120,17 +120,32 @@ TEST(WavefrontRendererTest, SameFileDifferentRepresentation)
     WavefrontRendererTest render2;
     render2.process("humanoid_quad.obj", true);
 
+
+    ASSERT_FALSE(render1.m_vbo.empty());
+    ASSERT_FALSE(render1.m_ibo.empty());
     ASSERT_TRUE( render1.m_vbo == render2.m_vbo );
     ASSERT_TRUE( render1.m_ibo == render2.m_ibo );
+
+    ASSERT_EQ(render1.commandsList(), render2.commandsList());
 
     // load without converting to triangles
     WavefrontRendererTest render3;
     render3.process("humanoid_quad.obj", false);
 
     // same VBO but different indexes
+    ASSERT_FALSE(render3.m_vbo.empty());
+    ASSERT_FALSE(render3.m_ibo.empty());
+
     ASSERT_TRUE( render3.m_vbo == render1.m_vbo );
     ASSERT_FALSE( render3.m_ibo == render1.m_ibo );
     ASSERT_TRUE( render3.m_vbo == render2.m_vbo );
     ASSERT_FALSE( render3.m_ibo == render2.m_ibo );
 
+    ASSERT_FALSE(render3.commandsList().empty());
+
+    ASSERT_NE(render1.commandsList(), render3.commandsList());
+
+    ASSERT_EQ(Command::Triangles, render1.commandsList().front().type);
+    ASSERT_EQ(Command::Triangles, render2.commandsList().front().type);
+    ASSERT_EQ(Command::Quads, render3.commandsList().front().type);
 }

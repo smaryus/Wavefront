@@ -34,6 +34,7 @@ public:
     {
         std::string name; /// Mesh name if exist in file
         std::vector<Face> faces; /// List with all the faces that describe the mesh
+        int numberOfElementsInFace = 0; /// number of index groups in a face
     };
 
     /**

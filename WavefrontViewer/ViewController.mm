@@ -10,6 +10,9 @@
 
 #import <OpenGLES/ES2/glext.h>
 
+#include "WavefrontFileReader.h"
+#include "WavefrontRenderer.h"
+
 // Uniform index.
 enum {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
@@ -24,6 +27,8 @@ GLint uniforms[NUM_UNIFORMS];
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
     float _rotation;
+
+    std::unique_ptr<WavefrontRenderer> _render;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -47,6 +52,8 @@ GLint uniforms[NUM_UNIFORMS];
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 
     [self setupGL];
+
+    [self readWavefront];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,7 +107,8 @@ GLint uniforms[NUM_UNIFORMS];
     self.effect.transform.projectionMatrix = projectionMatrix;
 
     GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
-    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
+    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation,
+                                           0.0f, 1.0f, 0.0f);
 
     // Compute the model view matrix for the object rendered with GLKit
     GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
@@ -111,6 +119,16 @@ GLint uniforms[NUM_UNIFORMS];
 
     // Compute the model view matrix for the object rendered with ES2
     modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
+
+    float scale = 1;
+
+    if( _render && (_render->maxCoordinateValue() != 0) )
+    {
+        scale = 1 / _render->maxCoordinateValue();
+    }
+
+    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix,
+                                      scale, scale, scale);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
 
@@ -131,7 +149,7 @@ GLint uniforms[NUM_UNIFORMS];
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
 
     // TODO: render objects
-
+    _render->draw();
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
@@ -273,5 +291,16 @@ GLint uniforms[NUM_UNIFORMS];
     
     return YES;
 }
+
+- (void)readWavefront {
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"cube"
+                                                     ofType:@"obj"];
+//    NSString* path = [[NSBundle mainBundle] pathForResource:@"ducky"
+//                                                     ofType:@"obj"];
+
+    WavefrontFileReader reader([path UTF8String]);
+    _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(reader));
+}
+
 
 @end

@@ -116,11 +116,10 @@ void WavefrontFileReader::loadFile(const std::string& filePath)
             auto& mesh = m_object.meshes.back();
 
             auto face = processFace(tokens);
-
+            mesh.numberOfElementsInFace = int(face.indices.size());
             mesh.faces.push_back(std::move(face));
         }
     }
-
 }
 
 void WavefrontFileReader::tokenize(const std::string& str,

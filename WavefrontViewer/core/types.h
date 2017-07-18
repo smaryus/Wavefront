@@ -9,33 +9,36 @@
 #ifndef types_h
 #define types_h
 
+#include <cinttypes>
+
 /**
  * Represents a 3D floating point
  */
 template<class T>
 struct Vec3
 {
-    T x; /// x-coordinate
-    T y; /// y-coordinate
-    T z; /// z-coordinate
-
-    /**
-     * Default constructor
-     */
-    Vec3(): x(T(0)), y(T(0)), z(T(0)) {}
+    T x = T(0); /// x-coordinate
+    T y = T(0); /// y-coordinate
+    T z = T(0); /// z-coordinate
 };
 
 typedef Vec3<float> fvec3;
 typedef Vec3<int> ivec3;
 
+/**
+ * Store face indices read from file
+ */
 struct IndexData
 {
-    int vertexIndex;
-    int normalIndex;
-    int textureIndex;
+    int vertexIndex = 0; /// vertex index
+    int normalIndex = 0; /// normal index
+    int textureIndex = 0; /// texture index
 
-    IndexData() : vertexIndex(0), normalIndex(0), textureIndex(0) {}
-
+    /**
+     * Compare if two objects are equal
+     * @param other - object to which this is compared
+     * @return true when the objects are equal
+     */
     bool operator== (const IndexData& other) const
     {
         return ((this->vertexIndex == other.vertexIndex) &&
@@ -45,13 +48,33 @@ struct IndexData
 
 };
 
+/**
+ * Vertex structure used by VBO to render in opengl.
+  */
 struct Vertex
 {
-    fvec3 position;
-    fvec3 normal;
-    fvec3 texture;
+    fvec3 position; /// pozition
+    fvec3 normal; /// normal
+    fvec3 texture; /// texture coordinate
 
     Vertex() : position(), normal(), texture() {}
+};
+
+/**
+ * Render command
+ */
+struct Command
+{
+    /// How the object should be render. As a triangle or quad
+    enum Type
+    {
+        Triangles,
+        Quads
+    };
+
+    Type type = Triangles; /// render type
+    uint32_t index = 0; /// starting index from current VBO
+    uint32_t count = 0; /// number of elements that need to be drawn
 };
 
 #endif /* types_h */

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		29906A601F1D40E00029D1EB /* WavefrontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29906A5E1F1D40E00029D1EB /* WavefrontRenderer.cpp */; };
 		29906A621F1D45F60029D1EB /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 29906A611F1D45F60029D1EB /* cube.obj */; };
+		29906A641F1D569D0029D1EB /* ducky.obj in Resources */ = {isa = PBXBuildFile; fileRef = 29906A631F1D569D0029D1EB /* ducky.obj */; };
+		29906A661F1D5C850029D1EB /* cub2.obj in Resources */ = {isa = PBXBuildFile; fileRef = 29906A651F1D5C850029D1EB /* cub2.obj */; };
+		29906A681F1D6C340029D1EB /* humanoid_tri.obj in Resources */ = {isa = PBXBuildFile; fileRef = 29906A671F1D6C340029D1EB /* humanoid_tri.obj */; };
+		29906A6A1F1D6DB60029D1EB /* humanoid_quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = 29906A691F1D6DB60029D1EB /* humanoid_quad.obj */; };
 		29ECB0691F1CF1FD006FCA6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB0681F1CF1FD006FCA6C /* main.m */; };
 		29ECB06C1F1CF1FD006FCA6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB06B1F1CF1FD006FCA6C /* AppDelegate.m */; };
 		29ECB06F1F1CF1FD006FCA6C /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB06E1F1CF1FD006FCA6C /* ViewController.mm */; };
@@ -26,6 +30,10 @@
 		29906A5E1F1D40E00029D1EB /* WavefrontRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavefrontRenderer.cpp; sourceTree = "<group>"; };
 		29906A5F1F1D40E00029D1EB /* WavefrontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavefrontRenderer.h; sourceTree = "<group>"; };
 		29906A611F1D45F60029D1EB /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		29906A631F1D569D0029D1EB /* ducky.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ducky.obj; sourceTree = "<group>"; };
+		29906A651F1D5C850029D1EB /* cub2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cub2.obj; sourceTree = "<group>"; };
+		29906A671F1D6C340029D1EB /* humanoid_tri.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = humanoid_tri.obj; sourceTree = "<group>"; };
+		29906A691F1D6DB60029D1EB /* humanoid_quad.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = humanoid_quad.obj; sourceTree = "<group>"; };
 		29ECB0641F1CF1FD006FCA6C /* WavefrontViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WavefrontViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29ECB0681F1CF1FD006FCA6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29ECB06A1F1CF1FD006FCA6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -105,6 +113,10 @@
 			isa = PBXGroup;
 			children = (
 				29906A611F1D45F60029D1EB /* cube.obj */,
+				29906A631F1D569D0029D1EB /* ducky.obj */,
+				29906A651F1D5C850029D1EB /* cub2.obj */,
+				29906A671F1D6C340029D1EB /* humanoid_tri.obj */,
+				29906A691F1D6DB60029D1EB /* humanoid_quad.obj */,
 				29ECB0841F1CF36D006FCA6C /* Shader.fsh */,
 				29ECB0821F1CF367006FCA6C /* Shader.vsh */,
 			);
@@ -191,9 +203,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				29906A621F1D45F60029D1EB /* cube.obj in Resources */,
+				29906A6A1F1D6DB60029D1EB /* humanoid_quad.obj in Resources */,
 				29ECB0831F1CF367006FCA6C /* Shader.vsh in Resources */,
 				29ECB0771F1CF1FE006FCA6C /* LaunchScreen.storyboard in Resources */,
 				29ECB0741F1CF1FD006FCA6C /* Assets.xcassets in Resources */,
+				29906A681F1D6C340029D1EB /* humanoid_tri.obj in Resources */,
+				29906A641F1D569D0029D1EB /* ducky.obj in Resources */,
+				29906A661F1D5C850029D1EB /* cub2.obj in Resources */,
 				29ECB0721F1CF1FD006FCA6C /* Main.storyboard in Resources */,
 				29ECB0851F1CF36D006FCA6C /* Shader.fsh in Resources */,
 			);

@@ -54,6 +54,10 @@ public:
         /// List with all the meshes from file
         std::vector<Mesh> meshes;
 
+        /**
+         * Checks if all the elements from object are empty or not
+         * @return Returns true if all the lists are empty and false otherwise
+         */
         bool empty() const { return vertices.empty() && texCoords.empty() &&
             normals.empty() && meshes.empty(); }
     };
@@ -65,8 +69,16 @@ public:
      */
     WavefrontFileReader(const std::string& filePath);
 
+    /**
+     * Class constructor with a stream object
+     * @param stream - parse data from an existing stream
+     */
     WavefrontFileReader(std::istream& stream);
 
+    /**
+     * Validates vertex, normal, texture indices
+     * @return Return true if the indices values are in range, false otherwise
+     */
     bool validateObject() const;
 
 public:

@@ -29,6 +29,7 @@ class WavefrontRenderer
 public:
 
 #ifdef NO_OPENGL
+    // Default constructor for unit tests
     WavefrontRenderer() {};
 #endif
 
@@ -42,6 +43,9 @@ public:
     WavefrontRenderer(const WavefrontFileReader& reader,
                       const bool splitInTriangles = true);
 
+    /**
+     * Class destructorgenerateBuffers
+     */
     ~WavefrontRenderer();
 
     /**
@@ -51,15 +55,32 @@ public:
 
 public:
     float maxCoordinateValue() const { return m_maxCoordinateValue; }
+    /**
+     * Get the list of commands used to render the object
+     * @return List of @see Command
+     */
     const std::vector<Command>& commandsList() const { return m_commands; }
 
 protected:
+    /**
+     * Generate buffers that later can be sent to opengl
+     * @param reader - wavefront file reader
+     * @param splitInTriangles - quads should be made from triangles
+     * @param vbo - VBO buffer
+     * @param ibo - index buffer object
+     */
     void generateBuffers(const WavefrontFileReader& reader,
                          const bool splitInTriangles,
                          std::vector<Vertex>& vbo,
                          std::vector<uint32_t>& ibo);
 
 private:
+    /**
+     * Create opengl representations for buffers created with @see
+     * generateBuffers
+     * @param vbo - VBO buffer
+     * @param ibo - index buffer object
+     */
     void generateOpenGLBuffers(std::vector<Vertex>& vbo,
                                std::vector<uint32_t>& ibo);
 

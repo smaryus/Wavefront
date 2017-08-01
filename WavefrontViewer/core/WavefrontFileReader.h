@@ -12,6 +12,7 @@
 #include <vector>
 #include <string>
 #include <cinttypes>
+#include <functional>
 
 #include "types.h"
 
@@ -35,6 +36,7 @@ namespace WavefrontFileReader
      * @param filePath - full path to the Wavefront file
      */
     std::shared_ptr<IObject> loadFile(const std::string& filePath);
+    void loadFile(const std::string& filePath, std::function<void(std::shared_ptr<IObject> object)>);
 
     /**
      * Validates vertex, normal, texture indices

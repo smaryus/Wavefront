@@ -160,7 +160,10 @@ GLint uniforms[NUM_UNIFORMS];
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
 
     // TODO: render objects
-    _render->draw();
+    if ( _render) {
+        
+        _render->draw();
+    }
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
@@ -307,13 +310,19 @@ GLint uniforms[NUM_UNIFORMS];
     assert( _renderFileIndex < self.objFiles.count );
 
     NSString* path = self.objFiles[_renderFileIndex];
+    _render.reset();
 
-    auto object = WavefrontFileReader::loadFile([path UTF8String]);
+    WavefrontFileReader::loadFile([path UTF8String], [self](std::shared_ptr<IObject> object) {
+        assert(object);
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            std::shared_ptr<IObject> objectBlock = object;
+            assert(objectBlock);
+            _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(*object.get()));
+        });
+        
+    });
     
-    assert(object);
-    
-    _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(*object.get()));
-
     self.fileNameLabel.text = [path lastPathComponent];
 }
 

@@ -25,7 +25,6 @@
 		29B13CA41F1E256E0078B4D6 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B13CA31F1E256E0078B4D6 /* OpenGL.framework */; };
 		29B13CA61F1E25860078B4D6 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B13CA51F1E25860078B4D6 /* GLKit.framework */; };
 		29B13CA71F1E30440078B4D6 /* cube.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29906A611F1D45F60029D1EB /* cube.obj */; };
-		29B13CA81F1E360A0078B4D6 /* WavefrontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29906A5E1F1D40E00029D1EB /* WavefrontRenderer.cpp */; };
 		29B13CAC1F1E37300078B4D6 /* WavefrontRendererTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29B13CAB1F1E37300078B4D6 /* WavefrontRendererTest.cpp */; };
 		29B13CAD1F1E3F7F0078B4D6 /* humanoid_tri.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29906A671F1D6C340029D1EB /* humanoid_tri.obj */; };
 		29B13CAE1F1E3F7F0078B4D6 /* humanoid_quad.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29906A691F1D6DB60029D1EB /* humanoid_quad.obj */; };
@@ -42,6 +41,7 @@
 		29ECB08A1F1CF574006FCA6C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ECB0881F1CF574006FCA6C /* OpenGLES.framework */; };
 		29ECB08F1F1CF7AD006FCA6C /* WavefrontFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB08D1F1CF7AD006FCA6C /* WavefrontFileReader.cpp */; };
 		AD1A05EA1F30C66400636DC2 /* WavefrontObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1A05E81F30C66400636DC2 /* WavefrontObject.cpp */; };
+		AD1A05EB1F30DE7900636DC2 /* WavefrontObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1A05E81F30C66400636DC2 /* WavefrontObject.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -334,9 +334,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				29B13C8D1F1E0D310078B4D6 /* main.cpp in Sources */,
-				29B13CA81F1E360A0078B4D6 /* WavefrontRenderer.cpp in Sources */,
 				29B13CAC1F1E37300078B4D6 /* WavefrontRendererTest.cpp in Sources */,
 				29B13CA01F1E119A0078B4D6 /* WavefrontFileReaderTest.cpp in Sources */,
+				AD1A05EB1F30DE7900636DC2 /* WavefrontObject.cpp in Sources */,
 				29B13CA11F1E25500078B4D6 /* WavefrontFileReader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

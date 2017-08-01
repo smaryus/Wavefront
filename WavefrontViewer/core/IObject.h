@@ -12,6 +12,7 @@
 #include <memory>
 #include <vector>
 #include <cinttypes>
+#include <string>
 
 struct VertexBuffer
 {
@@ -25,6 +26,18 @@ struct VertexBuffer
     void clear() { return vbo.clear(); ibo.clear(); }
 };
 
+struct Face
+{
+    std::vector<IndexData> indices;
+};
+
+struct Mesh
+{
+    std::string name; /// Mesh name if exist in file
+    std::vector<Face> faces; /// List with all the faces that describe the mesh
+    int numberOfElementsInFace = 0; /// number of index groups in a face
+};
+
 class IObject
 {
 public:
@@ -32,6 +45,18 @@ public:
     
     virtual const VertexBuffer& vertexBuffer() const = 0;
     virtual bool empty() const = 0;
+    
+    /// List with all the positions from file
+    std::vector<fvec3> vertices;
+    
+    /// List with all the texture coordinates from file
+    std::vector<fvec3> texCoords;
+    
+    /// List with all the normals from file
+    std::vector<fvec3> normals;
+    
+    /// List with all the meshes from file
+    std::vector<Mesh> meshes;
 };
 
 

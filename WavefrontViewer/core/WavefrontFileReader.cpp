@@ -14,6 +14,7 @@
 #include <iostream>
 #include <numeric>
 #include <stdexcept>
+#include <future>
 
 #include "WavefrontObject.hpp"
 
@@ -57,6 +58,22 @@ namespace WavefrontFileReader
      */
     fvec3 processVec3(const std::vector<std::string>& tokens);
     
+    
+    void loadFile(const string& filePath, std::function<void(std::shared_ptr<IObject> object)> func)
+    {
+        std::async([filePath, func]() {
+            ifstream file(filePath);
+            
+            if( !file.is_open() )
+            {
+                throw std::runtime_error("Could not open file");
+            }
+            
+            auto ptr = loadFile(file);
+            
+            func(ptr);
+        });
+    }
     
     std::shared_ptr<IObject> loadFile(const string& filePath)
     {
@@ -169,7 +186,7 @@ namespace WavefrontFileReader
         return objPtr;
     }
     
-    bool validateObject(const Object& object)
+    bool validateObject(const IObject& object)
     {
         for( const auto& mesh : object.meshes )
         {

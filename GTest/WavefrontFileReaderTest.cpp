@@ -13,6 +13,7 @@
 #include "WavefrontFileReader.h"
 
 using namespace std;
+using namespace WavefrontFileReader;
 
 // check if exteption is thrown when invalid path is given
 TEST(WavefrontFileReader, WrongPath)
@@ -20,7 +21,7 @@ TEST(WavefrontFileReader, WrongPath)
     bool readSuccessfull = true;
     try
     {
-        WavefrontFileReader reader("");
+        WavefrontFileReader::loadFile("");
     }
     catch (std::exception& ex)
     {
@@ -37,9 +38,9 @@ TEST(WavefrontFileReader, EmptyStream)
     try
     {
         stringstream stream;
-        WavefrontFileReader reader(stream);
+        auto object = WavefrontFileReader::loadFile(stream);
 
-        ASSERT_EQ(true, reader.object().empty());
+        ASSERT_EQ(true, object->empty());
     }
     catch (std::exception& ex)
     {
@@ -58,9 +59,9 @@ TEST(WavefrontFileReader, OnlyComments)
     {
         stringstream stream;
         stream << "#line1 \n #line2 \n #line3 \n #line3 \n #line4 \n #line5";
-        WavefrontFileReader reader(stream);
+        auto object = WavefrontFileReader::loadFile(stream);
 
-        ASSERT_EQ(true, reader.object().empty());
+        ASSERT_EQ(true, object->empty());
     }
     catch (std::exception& ex)
     {
@@ -86,14 +87,14 @@ TEST(WavefrontFileReader, PositionsOnly)
         v -0.500000 -0.500000 -0.500000 \n \
         v 0.500000 -0.500000 -0.500000";
 
-        WavefrontFileReader reader(stream);
+        auto object = WavefrontFileReader::loadFile(stream);
 
-        ASSERT_EQ(false, reader.object().empty());
+        ASSERT_EQ(false, object->empty());
 
-        ASSERT_EQ(7, reader.object().vertices.size());
-        ASSERT_EQ(true, reader.object().normals.empty());
-        ASSERT_EQ(true, reader.object().texCoords.empty());
-        ASSERT_EQ(true, reader.object().meshes.empty());
+        ASSERT_EQ(7, object->vertices.size());
+        ASSERT_EQ(true, object->normals.empty());
+        ASSERT_EQ(true, object->texCoords.empty());
+        ASSERT_EQ(true, object->meshes.empty());
     }
     catch (std::exception& ex)
     {
@@ -115,14 +116,14 @@ TEST(WavefrontFileReader, TextureCoordinatesOnly)
         vt 0.000000 1.000000
         vt 1.000000 1.000000)OBJ";
 
-        WavefrontFileReader reader(stream);
+        auto object = WavefrontFileReader::loadFile(stream);
 
-        ASSERT_EQ(false, reader.object().empty());
+        ASSERT_EQ(false, object->empty());
 
-        ASSERT_EQ(true, reader.object().vertices.empty());
-        ASSERT_EQ(true, reader.object().normals.empty());
-        ASSERT_EQ(4, reader.object().texCoords.size());
-        ASSERT_EQ(true, reader.object().meshes.empty());
+        ASSERT_EQ(true, object->vertices.empty());
+        ASSERT_EQ(true, object->normals.empty());
+        ASSERT_EQ(4, object->texCoords.size());
+        ASSERT_EQ(true, object->meshes.empty());
     }
     catch (std::exception& ex)
     {
@@ -145,14 +146,14 @@ TEST(WavefrontFileReader, NormalsOnly)
         vn 1.000000 0.000000 0.000000
         vn -1.000000 0.000000 0.000000)OBJ";
 
-        WavefrontFileReader reader(stream);
+        auto object = WavefrontFileReader::loadFile(stream);
 
-        ASSERT_EQ(false, reader.object().empty());
+        ASSERT_EQ(false, object->empty());
 
-        ASSERT_EQ(true, reader.object().vertices.empty());
-        ASSERT_EQ(6, reader.object().normals.size());
-        ASSERT_EQ(true, reader.object().texCoords.empty());
-        ASSERT_EQ(true, reader.object().meshes.empty());
+        ASSERT_EQ(true, object->vertices.empty());
+        ASSERT_EQ(6, object->normals.size());
+        ASSERT_EQ(true, object->texCoords.empty());
+        ASSERT_EQ(true, object->meshes.empty());
     }
     catch (std::exception& ex)
     {
@@ -171,21 +172,21 @@ TEST(WavefrontFileReader, FaceOnly)
         f 3/1/2 4/2/2 5/3/2
         f 5/3/2 4/2/2 6/4/2)OBJ";
 
-        WavefrontFileReader reader(stream);
+        auto object = WavefrontFileReader::loadFile(stream);
 
-        ASSERT_EQ(false, reader.object().empty());
+        ASSERT_EQ(false, object->empty());
 
-        ASSERT_EQ(true, reader.object().vertices.empty());
-        ASSERT_EQ(true, reader.object().normals.empty());
-        ASSERT_EQ(true, reader.object().texCoords.empty());
-        ASSERT_EQ(1, reader.object().meshes.size());
+        ASSERT_EQ(true, object->vertices.empty());
+        ASSERT_EQ(true, object->normals.empty());
+        ASSERT_EQ(true, object->texCoords.empty());
+        ASSERT_EQ(1, object->meshes.size());
 
-        const auto& mesh = reader.object().meshes.front();
+        const auto& mesh = object->meshes.front();
         ASSERT_EQ(true, mesh.name.empty());
         ASSERT_EQ(4, mesh.faces.size());
         ASSERT_EQ(3, mesh.numberOfElementsInFace);
 
-        ASSERT_FALSE(reader.validateObject());
+        ASSERT_FALSE(WavefrontFileReader::validateObject(*object.get()));
     }
     catch (std::exception& ex)
     {
@@ -198,21 +199,21 @@ TEST(WavefrontFileReader, Cube)
 {
     try
     {
-        WavefrontFileReader reader("cube.obj");
+        auto object = WavefrontFileReader::loadFile("cube.obj");
 
-        ASSERT_EQ(false, reader.object().empty());
+        ASSERT_EQ(false, object->empty());
 
-        ASSERT_EQ(8, reader.object().vertices.size());
-        ASSERT_EQ(6, reader.object().normals.size());
-        ASSERT_EQ(4, reader.object().texCoords.size());
-        ASSERT_EQ(1, reader.object().meshes.size());
+        ASSERT_EQ(8, object->vertices.size());
+        ASSERT_EQ(6, object->normals.size());
+        ASSERT_EQ(4, object->texCoords.size());
+        ASSERT_EQ(1, object->meshes.size());
 
-        const auto& mesh = reader.object().meshes.front();
+        const auto& mesh = object->meshes.front();
         ASSERT_TRUE(mesh.name == "cube");
         ASSERT_EQ(12, mesh.faces.size());
         ASSERT_EQ(3, mesh.numberOfElementsInFace);
 
-        ASSERT_TRUE(reader.validateObject());
+        ASSERT_TRUE(WavefrontFileReader::validateObject(*object.get()));
     }
     catch (std::exception& ex)
     {
@@ -224,18 +225,18 @@ TEST(WavefrontFileReader, Ducky)
 {
     try
     {
-        WavefrontFileReader reader("ducky.obj");
+        auto object = WavefrontFileReader::loadFile("ducky.obj");
 
-        ASSERT_EQ(false, reader.object().empty());
+        ASSERT_EQ(false, object->empty());
 
-        ASSERT_EQ(7895, reader.object().vertices.size());
-        ASSERT_EQ(0, reader.object().normals.size());
-        ASSERT_EQ(8850, reader.object().texCoords.size());
-        ASSERT_EQ(4, reader.object().meshes.size());
+        ASSERT_EQ(7895, object->vertices.size());
+        ASSERT_EQ(0, object->normals.size());
+        ASSERT_EQ(8850, object->texCoords.size());
+        ASSERT_EQ(4, object->meshes.size());
 
-        ASSERT_TRUE(reader.validateObject());
+        ASSERT_TRUE(WavefrontFileReader::validateObject(*object.get()));
 
-        auto& meshes = reader.object().meshes;
+        auto& meshes = object->meshes;
 
         int i = 0;
         ASSERT_TRUE(meshes[i].name == "Ducky Body");
@@ -288,20 +289,20 @@ TEST(WavefrontFileReader, Quad)
         f 5 6 2 1
         f 2 6 7 3)OBJ";
 
-        WavefrontFileReader reader(stream);
+        auto object = WavefrontFileReader::loadFile(stream);
 
-        ASSERT_EQ(false, reader.object().empty());
+        ASSERT_EQ(false, object->empty());
 
-        ASSERT_EQ(8, reader.object().vertices.size());
-        ASSERT_EQ(true, reader.object().normals.empty());
-        ASSERT_EQ(true, reader.object().texCoords.empty());
-        ASSERT_EQ(1, reader.object().meshes.size());
+        ASSERT_EQ(8, object->vertices.size());
+        ASSERT_EQ(true, object->normals.empty());
+        ASSERT_EQ(true, object->texCoords.empty());
+        ASSERT_EQ(1, object->meshes.size());
 
-        const auto& mesh = reader.object().meshes.front();
+        const auto& mesh = object->meshes.front();
         ASSERT_EQ(6, mesh.faces.size());
         ASSERT_EQ(4, mesh.numberOfElementsInFace);
 
-        ASSERT_TRUE(reader.validateObject());
+        ASSERT_TRUE(WavefrontFileReader::validateObject(*object.get()));
     }
     catch (std::exception& ex)
     {

@@ -19,9 +19,8 @@
  * Load and parse a Wavefront .obj file
  * https://en.wikipedia.org/wiki/Wavefront_.obj_file
  */
-class WavefrontFileReader
+namespace WavefrontFileReader
 {
-public:
     /**
      * Store the indices for a face
      */
@@ -62,81 +61,23 @@ public:
             normals.empty() && meshes.empty(); }
     };
 
-public:
+    /**
+     * Load and parse the specified Wavefront file
+     * @param stream - file stream
+     */
+    Object loadFile(std::istream& stream);
+    
     /**
      * Class constructor
      * @param filePath - full path to the Wavefront file
      */
-    WavefrontFileReader(const std::string& filePath);
-
-    /**
-     * Class constructor with a stream object
-     * @param stream - parse data from an existing stream
-     */
-    WavefrontFileReader(std::istream& stream);
+    Object loadFile(const std::string& filePath);
 
     /**
      * Validates vertex, normal, texture indices
      * @return Return true if the indices values are in range, false otherwise
      */
-    bool validateObject() const;
-
-public:
-    /**
-     * Wavefront file representation
-     *
-     * @return Returns an @see Object structure.
-     */
-    const Object& object() const { return m_object; }
-
-private:
-    /**
-     * Load and parse the specified Wavefront file
-     * @param stream - file stream
-     */
-    void loadFile(std::istream& stream);
-
-    /**
-     * Tokenize string using the specified delimiters.
-     *
-     * @param str - string that will be tokenized
-     * @param tokens - vector with tokens. Vector will be cleared before adding
-     *                  new tokens
-     * @param delimiters - delimiters used to tokenize the string
-     */
-    void tokenize(const std::string& str,
-                  std::vector<std::string>& tokens,
-                  const std::string& delimiters = "\t #") const;
-
-    /**
-     * Process a face ('f ...') from Wavefront file.
-     *
-     * @param tokens - list of tokens split using delimitates from @see tokenize
-     *              method. The first token is always 'f'.
-     *
-     * @return A face object
-     */
-    Face processFace(const std::vector<std::string>& tokens) const;
-
-    /**
-     * Fill a @see vec3 object with the information from tokens.
-     * Used to read vertex position, texture coords and normals.
-     *
-     * @param tokens - list of tokens split using delimitates from @see tokenize
-     *              method. The first token is a string representing the type
-     *              of the coordinates ('v', 'vt', 'vn' ...).
-     *
-     * @return Returns a vec3 object. If there are not sufficient tokens for
-     *          all vec3 components they are set to zero
-     */
-    fvec3 processVec3(const std::vector<std::string>& tokens) const;
-
-private:
-    /// Full file path pointing to the loaded obj file
-    std::string m_filePath;
-
-    /// Wavefront file representation
-    Object  m_object;
+    bool validateObject(const Object& object);
 };
 
 #endif /* WavefrontFileReader_h */

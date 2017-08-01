@@ -16,230 +16,265 @@
 #include <stdexcept>
 
 using namespace std;
-
-WavefrontFileReader::WavefrontFileReader(const string& filePath)
-: m_filePath(filePath)
-, m_object()
+namespace WavefrontFileReader
 {
-    ifstream file(filePath);
-
-    if( !file.is_open() )
+#pragma mark - Private definition
+    
+    /**
+     * Tokenize string using the specified delimiters.
+     *
+     * @param str - string that will be tokenized
+     * @param tokens - vector with tokens. Vector will be cleared before adding
+     *                  new tokens
+     * @param delimiters - delimiters used to tokenize the string
+     */
+    void tokenize(const std::string& str,
+                  std::vector<std::string>& tokens,
+                  const std::string& delimiters = "\t #");
+    
+    /**
+     * Process a face ('f ...') from Wavefront file.
+     *
+     * @param tokens - list of tokens split using delimitates from @see tokenize
+     *              method. The first token is always 'f'.
+     *
+     * @return A face object
+     */
+    Face processFace(const std::vector<std::string>& tokens);
+    
+    /**
+     * Fill a @see vec3 object with the information from tokens.
+     * Used to read vertex position, texture coords and normals.
+     *
+     * @param tokens - list of tokens split using delimitates from @see tokenize
+     *              method. The first token is a string representing the type
+     *              of the coordinates ('v', 'vt', 'vn' ...).
+     *
+     * @return Returns a vec3 object. If there are not sufficient tokens for
+     *          all vec3 components they are set to zero
+     */
+    fvec3 processVec3(const std::vector<std::string>& tokens);
+    
+    
+    Object loadFile(const string& filePath)
     {
-        throw std::runtime_error("Could not open file");
-
-        return;
-    }
-
-    loadFile(file);
-}
-
-WavefrontFileReader::WavefrontFileReader(std::istream& stream)
-{
-    loadFile(stream);
-}
-
-bool WavefrontFileReader::validateObject() const
-{
-    for( const auto& mesh : m_object.meshes )
-    {
-        for( auto& face : mesh.faces )
+        ifstream file(filePath);
+        
+        if( !file.is_open() )
         {
-            for( auto& index : face.indices )
+            throw std::runtime_error("Could not open file");
+        }
+        
+        return loadFile(file);
+    }
+    
+    Object loadFile(std::istream& stream)
+    {
+        string line;
+        std::vector<std::string> tokens;
+        
+        Object object;
+        
+        while( stream.good() )
+        {
+            stream >> std::ws;
+            
+            if( ! std::getline(stream, line) )
             {
-                if( abs(index.vertexIndex) > m_object.vertices.size() )
+                break;
+            }
+            
+            if( !line.empty() )
+            {
+                if( line.back() == '\r' )
                 {
-                    return false;
+                    line.pop_back();
                 }
-
-                if( abs(index.textureIndex) > m_object.texCoords.size() )
+            }
+            
+            if( line.empty() )
+            {
+                continue;
+            }
+            
+            assert(line.front() != ' ');
+            
+            if( line.front() == '#' )
+            {
+                // ignore white spaces
+                continue;
+            }
+            
+            tokenize(line, tokens);
+            if( tokens.empty() )
+            {
+                continue;
+            }
+            
+            const std::string& type = tokens[0];
+            
+            if( type == "v" )
+            {
+                // vertex
+                auto vertex = processVec3(tokens);
+                object.vertices.push_back(vertex);
+            }
+            else if( type == "vt")
+            {
+                // texture coordinates
+                auto coord = processVec3(tokens);
+                object.texCoords.push_back(coord);
+            }
+            else if( type == "vn")
+            {
+                // normal
+                auto normal = processVec3(tokens);
+                object.normals.push_back(normal);
+            }
+            else if( type == "g" )
+            {
+                // group name
+                Mesh g;
+                g.name.reserve(line.size());
+                for( auto it = tokens.begin()+1; it != tokens.end(); ++it )
                 {
-                    return false;
+                    if( !g.name.empty() )
+                    {
+                        g.name += " ";
+                    }
+                    g.name += *it;
                 }
-
-                if( abs(index.normalIndex) > m_object.normals.size() )
+                
+                object.meshes.push_back(std::move(g));
+            }
+            else if( type == "f" )
+            {
+                // face
+                if( object.meshes.empty() )
                 {
-                    return false;
+                    object.meshes.push_back(Mesh());
                 }
+                
+                auto& mesh = object.meshes.back();
+                
+                auto face = processFace(tokens);
+                mesh.numberOfElementsInFace = int(face.indices.size());
+                mesh.faces.push_back(std::move(face));
             }
         }
+        
+        return object;
     }
-    return true;
-}
-
-void WavefrontFileReader::loadFile(std::istream& stream)
-{
-    string line;
-    std::vector<std::string> tokens;
-
-    while( stream.good() )
+    
+    bool validateObject(const Object& object)
     {
-        stream >> std::ws;
-
-        if( ! std::getline(stream, line) )
+        for( const auto& mesh : object.meshes )
         {
-            break;
-        }
-
-        if( !line.empty() )
-        {
-            if( line.back() == '\r' )
+            for( auto& face : mesh.faces )
             {
-                line.pop_back();
-            }
-        }
-
-        if( line.empty() )
-        {
-            continue;
-        }
-
-        assert(line.front() != ' ');
-
-        if( line.front() == '#' )
-        {
-            // ignore white spaces
-            continue;
-        }
-
-        this->tokenize(line, tokens);
-        if( tokens.empty() )
-        {
-            continue;
-        }
-
-        const std::string& type = tokens[0];
-
-        if( type == "v" )
-        {
-            // vertex
-            auto vertex = processVec3(tokens);
-            m_object.vertices.push_back(vertex);
-        }
-        else if( type == "vt")
-        {
-            // texture coordinates
-            auto coord = processVec3(tokens);
-            m_object.texCoords.push_back(coord);
-        }
-        else if( type == "vn")
-        {
-            // normal
-            auto normal = processVec3(tokens);
-            m_object.normals.push_back(normal);
-        }
-        else if( type == "g" )
-        {
-            // group name
-            Mesh g;
-            g.name.reserve(line.size());
-            for( auto it = tokens.begin()+1; it != tokens.end(); ++it )
-            {
-                if( !g.name.empty() )
+                for( auto& index : face.indices )
                 {
-                    g.name += " ";
+                    if( abs(index.vertexIndex) > object.vertices.size() )
+                    {
+                        return false;
+                    }
+                    
+                    if( abs(index.textureIndex) > object.texCoords.size() )
+                    {
+                        return false;
+                    }
+                    
+                    if( abs(index.normalIndex) > object.normals.size() )
+                    {
+                        return false;
+                    }
                 }
-                g.name += *it;
             }
-
-            m_object.meshes.push_back(std::move(g));
         }
-        else if( type == "f" )
+        return true;
+    }
+    
+#pragma mark - Private methods
+    void tokenize(const std::string& str,
+                  vector<string>& tokens,
+                  const std::string& delimiters)
+    {
+        tokens.clear();
+        
+        if( str.empty() )
         {
-            // face
-            if( m_object.meshes.empty() )
+            return;
+        }
+        
+        size_t startPos = 0;
+        size_t endPos = str.find_first_of(delimiters);
+        while (endPos != std::string::npos )
+        {
+            if( startPos < endPos )
             {
-                m_object.meshes.push_back(Mesh());
+                auto token = str.substr(startPos, endPos-startPos);
+                if( token.front() == '#' )
+                {
+                    // comment detected, ignore everything till the end of line
+                    return;
+                }
+                tokens.push_back(std::move(token));
             }
-
-            auto& mesh = m_object.meshes.back();
-
-            auto face = processFace(tokens);
-            mesh.numberOfElementsInFace = int(face.indices.size());
-            mesh.faces.push_back(std::move(face));
+            
+            startPos = endPos + 1;
+            endPos = str.find_first_of(delimiters, startPos);
         }
+        
+        auto token = str.substr(startPos);
+        tokens.push_back(std::move(token));
     }
-}
-
-void WavefrontFileReader::tokenize(const std::string& str,
-                                   vector<string>& tokens,
-                                   const std::string& delimiters) const
-{
-    tokens.clear();
-
-    if( str.empty() )
+    
+    Face processFace(const vector<string>& tokens)
     {
-        return;
-    }
-
-    size_t startPos = 0;
-    size_t endPos = str.find_first_of(delimiters);
-    while (endPos != std::string::npos )
-    {
-        if( startPos < endPos )
+        Face face;
+        
+        for( auto it = tokens.begin()+1; it != tokens.end(); ++it )
         {
-            auto token = str.substr(startPos, endPos-startPos);
-            if( token.front() == '#' )
+            IndexData indexData;
+            
+            const char* ptr = (*it).c_str();
+            char* pEnd = nullptr;
+            
+            indexData.vertexIndex = std::strtod(ptr, &pEnd);
+            
+            if( indexData.vertexIndex <= 0 )
             {
-                // comment detected, ignore everything till the end of line
-                return;
+                continue;
             }
-            tokens.push_back(std::move(token));
-        }
-
-        startPos = endPos + 1;
-        endPos = str.find_first_of(delimiters, startPos);
-    }
-
-    auto token = str.substr(startPos);
-    tokens.push_back(std::move(token));
-}
-
-WavefrontFileReader::Face
-WavefrontFileReader::processFace(const vector<string>& tokens) const
-{
-    Face face;
-
-    for( auto it = tokens.begin()+1; it != tokens.end(); ++it )
-    {
-        IndexData indexData;
-
-        const char* ptr = (*it).c_str();
-        char* pEnd = nullptr;
-
-        indexData.vertexIndex = std::strtod(ptr, &pEnd);
-
-        if( indexData.vertexIndex <= 0 )
-        {
-            continue;
-        }
-
-        if( *pEnd == '/' )
-        {
-            indexData.textureIndex = std::strtod(pEnd+1, &pEnd);
-
+            
             if( *pEnd == '/' )
             {
-                indexData.normalIndex = std::strtod(pEnd+1, &pEnd);
-                assert(indexData.normalIndex > 0);
+                indexData.textureIndex = std::strtod(pEnd+1, &pEnd);
+                
+                if( *pEnd == '/' )
+                {
+                    indexData.normalIndex = std::strtod(pEnd+1, &pEnd);
+                    assert(indexData.normalIndex > 0);
+                }
             }
+            
+            face.indices.push_back(indexData);
         }
-
-        face.indices.push_back(indexData);
+        
+        return face;
     }
-
-    return face;
-}
-
-fvec3 WavefrontFileReader::processVec3(const vector<string>& tokens) const
-{
-    fvec3 v;
-
-    size_t tokensSize = tokens.size();
-
-    size_t i = 1;
-    v.x = (i < tokensSize) ? std::stof(tokens[i++].c_str()) : 0.0f;
-    v.y = (i < tokensSize) ? std::stof(tokens[i++].c_str()) : 0.0f;
-    v.z = (i < tokensSize) ? std::stof(tokens[i++].c_str()) : 0.0f;
     
-    return v;
+    fvec3 processVec3(const vector<string>& tokens)
+    {
+        fvec3 v;
+        
+        size_t tokensSize = tokens.size();
+        
+        size_t i = 1;
+        v.x = (i < tokensSize) ? std::stof(tokens[i++].c_str()) : 0.0f;
+        v.y = (i < tokensSize) ? std::stof(tokens[i++].c_str()) : 0.0f;
+        v.z = (i < tokensSize) ? std::stof(tokens[i++].c_str()) : 0.0f;
+        
+        return v;
+    }
 }

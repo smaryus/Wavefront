@@ -13,6 +13,8 @@
 #include "WavefrontFileReader.h"
 #include "WavefrontRenderer.h"
 
+using namespace std;
+
 // Uniform index.
 enum {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
@@ -306,8 +308,9 @@ GLint uniforms[NUM_UNIFORMS];
 
     NSString* path = self.objFiles[_renderFileIndex];
 
-    WavefrontFileReader reader([path UTF8String]);
-    _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(reader));
+    auto object = WavefrontFileReader::loadFile([path UTF8String]);
+    
+    _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(object));
 
     self.fileNameLabel.text = [path lastPathComponent];
 }

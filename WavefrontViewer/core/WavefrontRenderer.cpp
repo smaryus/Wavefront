@@ -32,10 +32,10 @@ struct KeyTypeHash
     }
 };
 
-WavefrontRenderer::WavefrontRenderer(const WavefrontFileReader& reader,
+WavefrontRenderer::WavefrontRenderer(const WavefrontFileReader::Object& object,
                                      const bool splitInTriangles/*=true*/)
 {
-    if( reader.object().empty() )
+    if( object.empty() )
     {
         return;
     }
@@ -43,7 +43,7 @@ WavefrontRenderer::WavefrontRenderer(const WavefrontFileReader& reader,
     std::vector<Vertex> vbo;
     std::vector<uint32_t> ibo;
 
-    generateBuffers(reader, splitInTriangles, vbo, ibo);
+    generateBuffers(object, splitInTriangles, vbo, ibo);
 
     generateOpenGLBuffers(vbo, ibo);
 }
@@ -89,7 +89,7 @@ void WavefrontRenderer::draw() const
 #endif
 }
 
-void WavefrontRenderer::generateBuffers(const WavefrontFileReader& reader,
+void WavefrontRenderer::generateBuffers(const WavefrontFileReader::Object& object,
                                         const bool splitInTriangles,
                                         std::vector<Vertex>& vbo,
                                         std::vector<uint32_t>& ibo)
@@ -97,8 +97,6 @@ void WavefrontRenderer::generateBuffers(const WavefrontFileReader& reader,
     vbo.clear();
     ibo.clear();
     
-    const auto& object = reader.object();
-
     std::unordered_map<KeyType, uint32_t, KeyTypeHash> duplicateVertices;
 
     m_maxCoordinateValue = 0;

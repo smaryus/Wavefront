@@ -19,7 +19,10 @@
 #include "types.h"
 
 // forward declaration
-class WavefrontFileReader;
+namespace WavefrontFileReader
+{
+    struct Object;
+};
 
 /**
  * Renders an wavefront file
@@ -40,7 +43,7 @@ public:
      *                  triangles if a face has more then 3 indices.
      *                  By default is true
      */
-    WavefrontRenderer(const WavefrontFileReader& reader,
+    WavefrontRenderer(const WavefrontFileReader::Object& reader,
                       const bool splitInTriangles = true);
 
     /**
@@ -69,7 +72,7 @@ protected:
      * @param vbo - VBO buffer
      * @param ibo - index buffer object
      */
-    void generateBuffers(const WavefrontFileReader& reader,
+    void generateBuffers(const WavefrontFileReader::Object& reader,
                          const bool splitInTriangles,
                          std::vector<Vertex>& vbo,
                          std::vector<uint32_t>& ibo);

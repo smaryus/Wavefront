@@ -39,6 +39,7 @@ GLint uniforms[NUM_UNIFORMS];
 @property (strong, nonatomic) GLKBaseEffect *effect;
 @property (strong, nonatomic) NSArray<NSString *>* objFiles;
 @property (weak, nonatomic) IBOutlet UILabel *fileNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @end
 
@@ -311,14 +312,20 @@ GLint uniforms[NUM_UNIFORMS];
 
     NSString* path = self.objFiles[_renderFileIndex];
     _render.reset();
+    
+    self.nextButton.userInteractionEnabled = NO;
 
     WavefrontFileReader::loadFile([path UTF8String], [self](std::shared_ptr<IObject> object) {
         assert(object);
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            std::shared_ptr<IObject> objectBlock = object;
-            assert(objectBlock);
-            _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(*object.get()));
+            
+            if (object)
+            {
+                _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(*object.get()));
+            }
+            
+            self.nextButton.userInteractionEnabled = YES;
         });
         
     });

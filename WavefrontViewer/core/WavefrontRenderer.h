@@ -12,17 +12,10 @@
 #include <cstdio>
 #include <vector>
 
-#ifndef NO_OPENGL
 #include <OpenGLES/ES2/glext.h>
-#endif
 
 #include "types.h"
-
-// forward declaration
-namespace WavefrontFileReader
-{
-    struct Object;
-};
+#include "IObject.h"
 
 /**
  * Renders an wavefront file
@@ -31,10 +24,8 @@ class WavefrontRenderer
 {
 public:
 
-#ifdef NO_OPENGL
     // Default constructor for unit tests
     WavefrontRenderer() {};
-#endif
 
     /**
      * Existing wavefront reader file
@@ -43,7 +34,7 @@ public:
      *                  triangles if a face has more then 3 indices.
      *                  By default is true
      */
-    WavefrontRenderer(const WavefrontFileReader::Object& reader,
+    WavefrontRenderer(const IObject& reader,
                       const bool splitInTriangles = true);
 
     /**
@@ -57,25 +48,7 @@ public:
     void draw() const;
 
 public:
-    float maxCoordinateValue() const { return m_maxCoordinateValue; }
-    /**
-     * Get the list of commands used to render the object
-     * @return List of @see Command
-     */
-    const std::vector<Command>& commandsList() const { return m_commands; }
-
-protected:
-    /**
-     * Generate buffers that later can be sent to opengl
-     * @param reader - wavefront file reader
-     * @param splitInTriangles - quads should be made from triangles
-     * @param vbo - VBO buffer
-     * @param ibo - index buffer object
-     */
-    void generateBuffers(const WavefrontFileReader::Object& reader,
-                         const bool splitInTriangles,
-                         std::vector<Vertex>& vbo,
-                         std::vector<uint32_t>& ibo);
+    float maxCoordinateValue() const { return m_vertexBuffer.scale; }
 
 private:
     /**
@@ -84,16 +57,13 @@ private:
      * @param vbo - VBO buffer
      * @param ibo - index buffer object
      */
-    void generateOpenGLBuffers(std::vector<Vertex>& vbo,
-                               std::vector<uint32_t>& ibo);
+    void generateOpenGLBuffers();
 
 private:
-#ifndef NO_OPENGL
     GLuint m_vboId = 0; /// opengl vertex buffer object id
     GLuint m_iboId = 0; /// opengl index buffer object id
-#endif
-    std::vector<Command> m_commands; /// list with commands to draw the object
-    float m_maxCoordinateValue = 0.0f; /// store the maximum coordinate value to calculate scale factor
+
+    VertexBuffer m_vertexBuffer;
 };
 
 #endif /* WavefrontFileRenderer_h */

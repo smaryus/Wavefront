@@ -41,6 +41,7 @@
 		29ECB0891F1CF574006FCA6C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ECB0871F1CF574006FCA6C /* GLKit.framework */; };
 		29ECB08A1F1CF574006FCA6C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ECB0881F1CF574006FCA6C /* OpenGLES.framework */; };
 		29ECB08F1F1CF7AD006FCA6C /* WavefrontFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB08D1F1CF7AD006FCA6C /* WavefrontFileReader.cpp */; };
+		AD1A05EA1F30C66400636DC2 /* WavefrontObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1A05E81F30C66400636DC2 /* WavefrontObject.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -96,6 +97,9 @@
 		29ECB08D1F1CF7AD006FCA6C /* WavefrontFileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavefrontFileReader.cpp; sourceTree = "<group>"; };
 		29ECB08E1F1CF7AD006FCA6C /* WavefrontFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavefrontFileReader.h; sourceTree = "<group>"; };
 		29ECB0901F1CF7CE006FCA6C /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		AD1A05E41F30C26200636DC2 /* IObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IObject.h; sourceTree = "<group>"; };
+		AD1A05E81F30C66400636DC2 /* WavefrontObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WavefrontObject.cpp; sourceTree = "<group>"; };
+		AD1A05E91F30C66400636DC2 /* WavefrontObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WavefrontObject.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +226,9 @@
 				29ECB0901F1CF7CE006FCA6C /* types.h */,
 				29906A5E1F1D40E00029D1EB /* WavefrontRenderer.cpp */,
 				29906A5F1F1D40E00029D1EB /* WavefrontRenderer.h */,
+				AD1A05E41F30C26200636DC2 /* IObject.h */,
+				AD1A05E81F30C66400636DC2 /* WavefrontObject.cpp */,
+				AD1A05E91F30C66400636DC2 /* WavefrontObject.hpp */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -343,6 +350,7 @@
 				29ECB06C1F1CF1FD006FCA6C /* AppDelegate.m in Sources */,
 				29ECB0691F1CF1FD006FCA6C /* main.m in Sources */,
 				29ECB08F1F1CF7AD006FCA6C /* WavefrontFileReader.cpp in Sources */,
+				AD1A05EA1F30C66400636DC2 /* WavefrontObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,10 +384,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GTest/Dependencies",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					NO_OPENGL,
-					"DEBUG=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GTest/Dependencies",

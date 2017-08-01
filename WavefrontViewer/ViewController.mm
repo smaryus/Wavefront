@@ -310,7 +310,9 @@ GLint uniforms[NUM_UNIFORMS];
 
     auto object = WavefrontFileReader::loadFile([path UTF8String]);
     
-    _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(object));
+    assert(object);
+    
+    _render = std::unique_ptr<WavefrontRenderer>(new WavefrontRenderer(*object.get()));
 
     self.fileNameLabel.text = [path lastPathComponent];
 }

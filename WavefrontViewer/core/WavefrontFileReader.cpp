@@ -15,6 +15,8 @@
 #include <numeric>
 #include <stdexcept>
 
+#include "WavefrontObject.hpp"
+
 using namespace std;
 namespace WavefrontFileReader
 {
@@ -56,7 +58,7 @@ namespace WavefrontFileReader
     fvec3 processVec3(const std::vector<std::string>& tokens);
     
     
-    Object loadFile(const string& filePath)
+    std::shared_ptr<IObject> loadFile(const string& filePath)
     {
         ifstream file(filePath);
         
@@ -68,12 +70,13 @@ namespace WavefrontFileReader
         return loadFile(file);
     }
     
-    Object loadFile(std::istream& stream)
+    std::shared_ptr<IObject> loadFile(std::istream& stream)
     {
         string line;
         std::vector<std::string> tokens;
         
-        Object object;
+        std::shared_ptr<IObject> objPtr = std::shared_ptr<IObject>(new Object());
+        auto& object = *(Object*)(objPtr.get());
         
         while( stream.good() )
         {
@@ -163,7 +166,7 @@ namespace WavefrontFileReader
             }
         }
         
-        return object;
+        return objPtr;
     }
     
     bool validateObject(const Object& object)
